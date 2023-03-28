@@ -5,39 +5,39 @@
  * decimal places displayed
  *
  * @format: string in which arguments are printed
- * @i: list of arguments to be printed
+ * @n: list of arguments to be printed
  * @list: arguments list
  *
  * Return: precision for printing
  */
 
-int get_precision(const char *format, int *i, va_list list)
+int get_precision(const char *format, int *n, va_list list)
 {
-	int curr_i = *i + 1;
+	int curr_n = *n + 1;
 	int precision = -1;
 
-	if (format[curr_i] != '.')
+	if (format[curr_n] != '.')
 		return (precision);
 
 	precision = 0;
 
-	for (curr_i += 1; format[curr_i] != '\0'; curr_i++)
+	for (curr_n += 1; format[curr_n] != '\0'; curr_n++)
 	{
-		if (is_digit(format[curr_i]))
+		if (is_digit(format[curr_n]))
 		{
 			precision *= 10;
-			precision += format[curr_i] - '0';
+			precision += format[curr_n] - '0';
 		}
-		else if (format[curr_i] == '*')
+		else if (format[curr_n] == '*')
 		{
-			curr_i++;
+			curr_n++;
 			precision = va_arg(list, int);
 			break;
 		}
 		else
 			break;
 	}
-	*i = curr_i - 1;
+	*n = curr_n - 1;
 
 	return (precision);
 }
